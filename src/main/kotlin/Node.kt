@@ -3,10 +3,8 @@ class Node constructor(_name: String){
     val name: String = _name                 // 노드의 이름
 
     // Node 사이의 edge를 생성한다.
-    fun connectNode(vararg nodes: Node) {
-        for(node in nodes) {
-            connected.add(node)
-        }
+    fun connectNode(node: Node) {
+        connected.add(node)
     }
 
     // Node와 연결된 Node들을 출력한다.

@@ -2,27 +2,6 @@ class BipartiteGraph {
     private var leftside: ArrayList<Node> = ArrayList<Node>()
     private var rightside: ArrayList<Node> = ArrayList<Node>()
 
-    var a: Node = Node("A")
-    var b: Node = Node("B")
-    var c: Node = Node("C")
-    var d: Node = Node("D")
-
-    var n: Node = Node("N")
-    var m: Node = Node("M")
-    var l: Node = Node("L")
-
-    init {
-        a.connectNode(n, m)
-        b.connectNode(n, m, l)
-        d.connectNode(l)
-        n.connectNode(a, b)
-        m.connectNode(a, b)
-        l.connectNode(b, d)
-
-        leftside.addAll(mutableListOf<Node>(a, b, c, d))
-        rightside.addAll(mutableListOf<Node>(n, m, l))
-    }
-
     fun showLeftSide() {
         for (node in leftside) {
             println(node.name)
@@ -86,10 +65,10 @@ class BipartiteGraph {
             val count = i.connected.count()
             rightDegrees += count * count
         }
-
+        /*
         println("Left Side: $leftDegrees")
         println("rightDegrees: $rightDegrees")
-
+        */
         if (leftDegrees < rightDegrees) {
             val tmp: ArrayList<Node> = leftside
             leftside = rightside
@@ -102,6 +81,43 @@ class BipartiteGraph {
     }
 
     fun setRightSide(right: ArrayList<Node>) {
-        leftside = right
+        rightside = right
+    }
+
+    fun showInfo() {
+        for (n in leftside) {
+            n.showConnectedList()
+        }
+    }
+
+    fun showMaxLeftDegreesInfo() {
+        var leftMax = 0
+        var rightMax = 0
+
+        for (node in leftside) {
+            val tmp = node.connected.count()
+            if (tmp > leftMax) {
+                leftMax = tmp
+            }
+        }
+
+        for (node in rightside) {
+            val tmp = node.connected.count()
+            if (tmp > rightMax) {
+                rightMax = tmp
+            }
+        }
+
+        println("Left Max Degree: $leftMax")
+        println("Right Max Degree: $rightMax")
+    }
+
+    fun showUniqueEdge() {
+        var sum = 0
+        for (node in leftside) {
+            sum += node.connected.count()
+        }
+
+        println("Unique edge count: $sum")
     }
 }
